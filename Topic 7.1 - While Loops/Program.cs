@@ -9,7 +9,8 @@ namespace Topic_7._1___While_Loops
             int coinOutput;
             double bet, totalMoney = 100.00;
             string gameChoice = "";
-            
+            bool done = false;
+
             Random generator;
             generator = new Random();
 
@@ -18,7 +19,7 @@ namespace Topic_7._1___While_Loops
             Console.Clear();
 
 
-            while (totalMoney > 0 && gameChoice != "quit" && gameChoice != "q")
+            while (!done)
             {
                 Console.WriteLine("Flip (f) or Quit (q)?");
                 gameChoice = Console.ReadLine();
@@ -63,7 +64,11 @@ namespace Topic_7._1___While_Loops
                             totalMoney = 0;
                         Console.Clear();
                     }
-
+                    if (totalMoney == 0)
+                    {
+                        Console.WriteLine("You are out of money.  Come again soon");
+                        done = true;
+                    }
                 }
 
                 Console.WriteLine("Your winnings are " + totalMoney.ToString("c"));
