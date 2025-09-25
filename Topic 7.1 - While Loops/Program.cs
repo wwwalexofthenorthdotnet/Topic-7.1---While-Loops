@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Topic_7._1___While_Loops
 {
@@ -8,8 +9,8 @@ namespace Topic_7._1___While_Loops
         {
             int coinOutput;
             double bet, totalMoney = 100.00;
-            string gameChoice = "";
-            bool done = false;
+            string gameChoice = "", coinChoice;
+            bool done = false, coinPicked = false, validBet = false;
 
             Random generator;
             generator = new Random();
@@ -17,7 +18,6 @@ namespace Topic_7._1___While_Loops
             Console.WriteLine("Type ENTER to start");
             Console.ReadLine();
             Console.Clear();
-
 
             while (!done)
             {
@@ -27,21 +27,47 @@ namespace Topic_7._1___While_Loops
                 {
                     Console.WriteLine("Thanks for playing!");
                     Console.ReadLine();
+                    done = true;
                 }
                 else
                 {
+                    Console.Write("Heads (h) or Tails (t)? ");
+                    coinChoice = Console.ReadLine();
+
+                    if (coinChoice.ToLower() == "t" || coinChoice.ToLower() == "tails")
+                        coinPicked = true;
+
+                    else if (coinChoice.ToLower() == "h" || coinChoice.ToLower() == "heads")
+                        coinPicked = true;
+
+                    while (coinPicked == false)
+                    {
+                        Console.Write("Heads (h) or Tails (t)? ");
+                        coinChoice = Console.ReadLine();
+
+                        if (coinChoice.ToLower() == "t" || coinChoice.ToLower() == "tails")
+                            coinPicked = true;
+
+                        else if (coinChoice.ToLower() == "h" || coinChoice.ToLower() == "heads")
+                            coinPicked = true;
+                    }
+
+                    
 
 
-                    Console.Clear();
+                        Console.Clear();
                     Console.Write("Enter Bet (Balance: " + totalMoney.ToString("c") + ") ");
                     double.TryParse(Console.ReadLine(), out bet);
-                    while (bet > totalMoney || bet < 0)
+                    
+                    while (bet <= 0 || bet > totalMoney)
                     {
                         Console.Write("Enter Bet (Balance: " + totalMoney.ToString("c") + ") ");
                         double.TryParse(Console.ReadLine(), out bet);
                     }
+
                     Console.Clear();
                     Console.WriteLine("You've bet " + bet.ToString("c"));
+                    validBet = false;
 
                     Console.WriteLine("Flipping...");
                     coinOutput = generator.Next(2);
@@ -49,19 +75,61 @@ namespace Topic_7._1___While_Loops
 
                     if (coinOutput == 0)
                     {
-                        Console.WriteLine("You Win! You flipped heads");
+                        Console.WriteLine("You flipped heads!");
+                        if (coinChoice == "h" || coinChoice == "heads")
+                        {
+                            Console.WriteLine("You Win!");
+                            if (bet != 0)
+                                totalMoney = (totalMoney + (bet * 1.5));
+                            coinPicked = false;
+                            
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("You Lose!");
+                            totalMoney = (totalMoney - bet);
+                            if (totalMoney <= 0)
+                            {
+                                totalMoney = 0;
+                                done = true;
+                            
+                            }
+                            coinPicked = false;
+
+
+                        }
                         Console.ReadLine();
-                        if (bet != 0)
-                            totalMoney = (totalMoney + (bet * 1.5));
                         Console.Clear();
                     }
                     else if (coinOutput == 1)
                     {
-                        Console.WriteLine("You Lose! You flipped tails.");
+                        Console.WriteLine("You flipped Tails!");
+                        if (coinChoice.ToLower() == "t" || coinChoice.ToLower() == "tails")
+                        {
+                            Console.WriteLine("You Win!");
+                            if (bet != 0)
+                                totalMoney = (totalMoney + (bet * 1.5));
+                            coinPicked = false;
+
+
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("You Lose!");
+                            totalMoney = (totalMoney - bet);
+                            if (totalMoney <= 0)
+                            {
+                                totalMoney = 0;
+                                done = true;
+                            }
+                            coinPicked = false;
+
+                        }
                         Console.ReadLine();
-                        totalMoney = (totalMoney - bet);
-                        if (totalMoney < 0)
-                            totalMoney = 0;
+                        Console.Clear();
+
                         Console.Clear();
                     }
                     if (totalMoney == 0)
@@ -70,17 +138,17 @@ namespace Topic_7._1___While_Loops
                         done = true;
                     }
                 }
-
-                Console.WriteLine("Your winnings are " + totalMoney.ToString("c"));
-                Console.ReadLine();
+               
                 
             }
+            Console.WriteLine("Your total balance is " + totalMoney.ToString("c"));
+            Console.ReadLine();
 
-          
+
 
         }
 
-      
+   
     }
 
 }
