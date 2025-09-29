@@ -23,13 +23,17 @@ namespace Topic_7._1___While_Loops
             {
                 Console.WriteLine("Flip (f) or Quit (q)?");
                 gameChoice = Console.ReadLine();
-                if (gameChoice == "quit" || gameChoice == "q")
+
+                
+                
+                
+                if (gameChoice.ToLower() == "quit" || gameChoice.ToLower() == "q")
                 {
                     Console.WriteLine("Thanks for playing!");
                     Console.ReadLine();
                     done = true;
                 }
-                else
+                else if (gameChoice.ToLower() == "flip" || gameChoice.ToLower() == "f")
                 {
                     Console.Write("Heads (h) or Tails (t)? ");
                     coinChoice = Console.ReadLine();
@@ -69,9 +73,14 @@ namespace Topic_7._1___While_Loops
                     Console.WriteLine("You've bet " + bet.ToString("c"));
                     validBet = false;
 
-                    Console.WriteLine("Flipping...");
+                    if (coinChoice.ToLower() == "heads" || coinChoice.ToLower() == "h")
+                        Console.WriteLine("You bet on heads");
+                    else if (coinChoice.ToLower() == "tails" || coinChoice.ToLower() == "t")
+                        Console.WriteLine("You bet on tails");
+
+                        Console.WriteLine("Flipping...");
                     coinOutput = generator.Next(2);
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(2000);
 
                     if (coinOutput == 0)
                     {
@@ -138,6 +147,8 @@ namespace Topic_7._1___While_Loops
                         done = true;
                     }
                 }
+
+               
                
                 
             }
