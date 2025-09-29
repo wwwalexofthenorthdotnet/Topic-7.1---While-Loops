@@ -61,12 +61,12 @@ namespace Topic_7._1___While_Loops
 
                         Console.Clear();
                     Console.Write("Enter Bet (Balance: " + totalMoney.ToString("c") + ") ");
-                    double.TryParse(Console.ReadLine(), out bet);
+                    ;
                     
-                    while (bet <= 0 || bet > totalMoney)
+                    while (!double.TryParse(Console.ReadLine(), out bet) || (bet <= 0 || bet > totalMoney))
                     {
                         Console.Write("Enter Bet (Balance: " + totalMoney.ToString("c") + ") ");
-                        double.TryParse(Console.ReadLine(), out bet);
+                        //double.TryParse(Console.ReadLine(), out bet);
                     }
 
                     Console.Clear();
@@ -78,9 +78,9 @@ namespace Topic_7._1___While_Loops
                     else if (coinChoice.ToLower() == "tails" || coinChoice.ToLower() == "t")
                         Console.WriteLine("You bet on tails");
 
-                        Console.WriteLine("Flipping...");
+                    Console.WriteLine("Flipping...");
                     coinOutput = generator.Next(2);
-                    System.Threading.Thread.Sleep(2000);
+                    Thread.Sleep(2000);
 
                     if (coinOutput == 0)
                     {
